@@ -1,0 +1,133 @@
+import subprocess
+from pathlib import Path
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
+
+OUTPUT_PATH = Path(_file_).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\LENOVO\OneDrive\Documents\biya\build\assets\frame3")
+
+
+def guitogui2():
+    window.destroy()
+    subprocess.call(["python", "C:/Users/LENOVO/OneDrive/Documents/biya/build/gui2.py"])
+
+def save_entry_transportasi():
+    try:
+        datatransportasi = float(entry_1.get())
+        file_path = "C:/Users/LENOVO/OneDrive/Documents/biya/build/assets/dbLogin/transportasi.txt"
+        
+        with open(file_path, "w") as file:
+            file.write(str(datatransportasi))
+            update_main_balance(datatransportasi)
+        messagebox.showinfo("Info", "Data telah diperbarui")
+    except ValueError:
+        messagebox.showerror("Error", "Masukkan angka yang valid")
+    finally:
+        window.destroy()
+        subprocess.call(["python", "C:/Users/LENOVO/OneDrive/Documents/biya/build/gui2.py"])
+
+def update_main_balance(expense):
+    try:
+        with open("data.txt", "r") as file:
+            current_balance = float(file.read().strip())
+        new_balance = current_balance - expense
+        with open("data.txt", "w") as file:
+            file.write(str(new_balance))
+    except (FileNotFoundError, ValueError):
+        pass
+
+def load_entry_data():
+    try:
+        file_path = "C:/Users/LENOVO/OneDrive/Documents/biya/build/assets/dbLogin/transportasi.txt"
+        with open(file_path, "r") as file:
+            data = file.read()
+            entry_1.delete(0, "end")  # Clear the entry widget
+            entry_1.insert(0, data)  # Insert the data into the entry widget
+    except FileNotFoundError:
+        pass  # Handle the case where the file does not exist yet
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+
+
+window = Tk()
+
+window.geometry("430x932")
+window.configure(bg="#FFFFFF")
+
+canvas = Canvas(
+    window,
+    bg="#FFFFFF",
+    height=932,
+    width=430,
+    bd=0,
+    highlightthickness=0,
+    relief="ridge"
+)
+
+canvas.place(x=0, y=0)
+image_image_1 = PhotoImage(
+    file=relative_to_assets("image_1.png"))
+image_1 = canvas.create_image(
+    215.0,
+    466.0,
+    image=image_image_1
+)
+
+image_image_2 = PhotoImage(
+    file=relative_to_assets("image_2.png"))
+image_2 = canvas.create_image(
+    215.0,
+    108.0,
+    image=image_image_2
+)
+
+image_image_3 = PhotoImage(
+    file=relative_to_assets("image_3.png"))
+image_3 = canvas.create_image(
+    215.0,
+    36.0,
+    image=image_image_3
+)
+
+entry_image_1 = PhotoImage(
+    file=relative_to_assets("entry_1.png"))
+entry_bg_1 = canvas.create_image(
+    214.5,
+    107.5,
+    image=entry_image_1
+)
+entry_1 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+entry_1.place(
+    x=38.0,
+    y=84.0,
+    width=353.0,
+    height=45.0
+)
+
+button_image_3 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+button_1 = Button(
+    image=button_image_3,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: save_entry_transportasi(),
+    relief="flat"
+)
+button_1.place(
+    x=138.0,
+    y=606.0,
+    width=154.0,
+    height=47.0
+)
+
+window.resizable(False, False)
+
+# Load the data into the entry widget when the application starts
+load_entry_data()
+
+window.mainloop()
