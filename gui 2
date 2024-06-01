@@ -1,0 +1,165 @@
+import subprocess
+from pathlib import Path
+from time import strftime
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
+
+OUTPUT_PATH = Path(_file_).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\LENOVO\OneDrive\Documents\biya\build\assets\frame1")
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+
+def database():
+    email= str(entry_1.get())
+    userName= str(entry_2.get())
+    password= str(entry_3.get())
+    time_string= strftime('%H:%M:%S')  
+
+    with open("C:/Users/LENOVO/OneDrive/Documents/biya/build/assets/dbLogin/dbRegister.txt", "w") as file:
+        file.write(f"Email: {email}\n User Name: {userName}\n Password : {password}\n Login Time : {time_string}\n")
+
+    window.destroy()
+    subprocess.call(["python", "C:/Users/LENOVO/OneDrive/Documents/biya/build/gui.py"])
+
+window = Tk()
+
+window.geometry("430x932")
+window.configure(bg = "#C7E4FF")
+
+canvas = Canvas(
+    window,
+    bg = "#C7E4FF",
+    height = 932,
+    width = 430,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+)
+
+canvas.place(x = 0, y = 0)
+image_image_1 = PhotoImage(
+    file=relative_to_assets("image_1.png"))
+image_1 = canvas.create_image(
+    216.0,
+    466.0,
+    image=image_image_1
+)
+
+image_image_2 = PhotoImage(
+    file=relative_to_assets("image_2.png"))
+image_2 = canvas.create_image(
+    213.0,
+    369.0,
+    image=image_image_2
+)
+
+entry_image_1 = PhotoImage(
+    file=relative_to_assets("entry_1.png"))
+entry_bg_1 = canvas.create_image(
+    216.0,
+    471.5,
+    image=entry_image_1
+)
+entry_1 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+entry_1.place(
+    x=73.0,
+    y=448.0,
+    width=286.0,
+    height=45.0
+)
+
+image_image_3 = PhotoImage(
+    file=relative_to_assets("image_3.png"))
+image_3 = canvas.create_image(
+    216.0,
+    171.0,
+    image=image_image_3
+)
+
+image_image_4 = PhotoImage(
+    file=relative_to_assets("image_4.png"))
+image_4 = canvas.create_image(
+    114.0,
+    435.0,
+    image=image_image_4
+)
+
+entry_image_2 = PhotoImage(
+    file=relative_to_assets("entry_2.png"))
+entry_bg_2 = canvas.create_image(
+    216.0,
+    565.5,
+    image=entry_image_2
+)
+entry_2 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+entry_2.place(
+    x=73.0,
+    y=542.0,
+    width=286.0,
+    height=45.0
+)
+
+image_image_5 = PhotoImage(
+    file=relative_to_assets("image_5.png"))
+image_5 = canvas.create_image(
+    138.0,
+    529.0,
+    image=image_image_5
+)
+
+entry_image_3 = PhotoImage(
+    file=relative_to_assets("entry_3.png"))
+entry_bg_3 = canvas.create_image(
+    218.0,
+    659.5,
+    image=entry_image_3
+)
+entry_3 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+entry_3.place(
+    x=75.0,
+    y=636.0,
+    width=286.0,
+    height=45.0
+)
+
+image_image_6 = PhotoImage(
+    file=relative_to_assets("image_6.png"))
+image_6 = canvas.create_image(
+    132.0,
+    623.0,
+    image=image_image_6
+)
+
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+button_1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command= database,
+    relief="flat"
+)
+button_1.place(
+    x=58.0,
+    y=737.0,
+    width=316.0,
+    height=58.0
+)
+
+window.resizable(False, False)
+window.mainloop()
